@@ -15,17 +15,40 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+
+from django.urls import path, include
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
 from django.urls import path, include 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,)
 
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Stadium API",
+      default_version='v1',
+      description="Footbal Stadium",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@snippets.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
+
 
 urlpatterns = [
 
     path('admin/', admin.site.urls),
+
+    # path('accounts/', include('account.urls')),
+    path('stadium/', include('bron.urls')),
+
     path('user/', include('account.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+
 
 
 ]

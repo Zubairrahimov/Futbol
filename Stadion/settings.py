@@ -31,10 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # local
     'rest_framework',
     'account',
     'bron',
     'modeltranslation',
+
+    # third
     'django.contrib.admin',
 
     'rest_framework_simplejwt',
@@ -140,3 +143,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME":  timedelta(days=5),
+}
