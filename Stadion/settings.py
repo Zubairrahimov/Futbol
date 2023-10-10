@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'account',
     'bron',
     'django.contrib.admin',
+    'rest_framework_simplejwt',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -51,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTH_USER_MODEL = "account.CustomUser"
 
 ROOT_URLCONF = 'Stadion.urls'
 
