@@ -31,9 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # local
     'rest_framework',
     'account',
     'bron',
+    # third
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
