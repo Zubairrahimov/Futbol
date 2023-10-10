@@ -27,7 +27,7 @@ class BronModel(models.Model):
     bron_status = models.BooleanField(default=False,null=True)
 
     def __str__(self):
-        return f"{self.user} {self.stadium.name}"
+        return f"{self.user} {self.stadium.name} {self.start_time}"
 
     class Meta:
         db_table = 'Bron'
