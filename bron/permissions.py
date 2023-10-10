@@ -17,7 +17,7 @@ class OwnerPermissionClass(BasePermission):
 
 class AdminPermissionClass(BasePermission):
     def has_permission(self, request, view):
-        if request.user.roles==3 or request.user.roles == 2:
+        if request.user.roles==3:
             return True
         return False
 

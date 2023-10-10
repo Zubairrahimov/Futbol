@@ -43,12 +43,10 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
-    # path('accounts/', include('account.urls')),
     path('stadium/', include('bron.urls')),
 
     path('user/', include('account.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-
 
 
 ]

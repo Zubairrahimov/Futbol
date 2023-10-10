@@ -1,61 +1,54 @@
 from django.shortcuts import render,get_object_or_404
-from rest_framework import generics
-from rest_framework.views import APIView
+from rest_framework import generics, views
 from rest_framework.response import Response
 from .models import StadiumModel,BronModel
 from .serializers import StadiumSerializer,BronSerializer
-from permissions import OwnerPermissionClass,AdminPermissionClass,UserPermission
+from .permissions import OwnerPermissionClass,AdminPermissionClass,UserPermission
 from rest_framework.permissions import IsAuthenticated
-
-
 
 #                admin views
 
-class CreatePollsAPiView(generics.CreateAPIView):
+class AdminCreateAPiView(generics.CreateAPIView):
     queryset = BronModel.objects.all()
     serializer_class = BronSerializer
     permission_classes = (IsAuthenticated,AdminPermissionClass)
 
-class DeleteBron(generics.DestroyAPIView):
+class AdminDeleteBron(generics.DestroyAPIView):
     queryset = BronModel.objects.all()
     serializer_class = BronSerializer
     permission_classes = (IsAuthenticated,AdminPermissionClass)
 
-class AllBronsView(generics.APIView):
-    def get(self,request,*args,**kwargs):
-        try:
-            print(kwargs["bron_status"])
-            all_bron = BronModel.objects.filter(bron_status=kwargs["bron_status"].title())
-            serializer = BronSerializer(all_bron,many=True)
-            permission_classes = (IsAuthenticated,AdminPermissionClass)
-            return Response(serializer.data)
-        except:
-            return Response({"message":"please enter true value only"})
+class AdminAllStadiumView(generics.ListAPIView):
+    queryset = StadiumModel.objects.all()
+    serializer_class = StadiumSerializer
+    permission_classes = (IsAuthenticated,AdminPermissionClass)
 
-#                 Owner
+class UpdateStatusPollsView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BronModel.objects.all()
+    serializer_class = BronSerializer
+    permission_classes = (IsAuthenticated,AdminPermissionClass)
 
-class BronsView(APIView):
-    def get(self,request,*args,**kwargs):
-        try:
-            print(kwargs["bron_status"])
-            all_bron = BronModel.objects.filter(bron_status=kwargs["bron_status"].title())
-            serializer = BronSerializer(all_bron,many=True)
-            permission_classes = (IsAuthenticated,OwnerPermissionClass)
-            return Response(serializer.data)
-        except:
-            return Response({"message":"please enter true value only"})
+    #      Owner views
 
-class CreatePollsAPiView(generics.CreateAPIView):
+class OwnerCreatePollsAPiView(generics.CreateAPIView):
     queryset = BronModel.objects.all()
     serializer_class = BronSerializer
     permission_classes = (IsAuthenticated,OwnerPermissionClass)
 
-class DeleteBron(generics.DestroyAPIView):
+class OwnerDeleteBron(generics.DestroyAPIView):
     queryset = BronModel.objects.all()
     serializer_class = BronSerializer
     permission_classes = (IsAuthenticated,OwnerPermissionClass)
 
+class OwnerAllStadiumView(generics.ListAPIView):
+    queryset = StadiumModel.objects.all()
+    serializer_class = StadiumSerializer
+    permission_classes = (IsAuthenticated,)
 
+class OwnerUpdateStatusPollsView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BronModel.objects.all()
+    serializer_class = BronSerializer
+    permission_classes = (IsAuthenticated,AdminPermissionClass)
 
 #                      user views
 
@@ -73,3 +66,12 @@ class AllStadiumView(generics.ListAPIView):
     queryset = StadiumModel.objects.all()
     serializer_class = StadiumSerializer
     permission_classes = (IsAuthenticated,UserPermission)
+    
+class ListPollsApiView(generics.ListAPIView):
+    serializer_class = BronSerializer
+    permission_classes = (IsAuthenticated,)
+    
+    def get_queryset(self):
+        return BronModel.objects.filter(status=False)
+    
+
