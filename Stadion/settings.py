@@ -31,10 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # local
     'rest_framework',
     'account',
     'bron',
+    'modeltranslation',
+
+    # third
     'django.contrib.admin',
+
     'rest_framework_simplejwt',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,6 +122,17 @@ USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES = (
+    ('uz', 'Uzbek'),
+    ('en', 'English'),
+    ('ru', 'Russian')
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
+MODELTRANSLATION_TRANSLATION_REGISTRY = 'config.translations'
+
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -127,3 +143,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME":  timedelta(days=5),
+}

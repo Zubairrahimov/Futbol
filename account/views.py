@@ -9,3 +9,5 @@ class CreateUserView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     permission_classes = [IsAdminUserOrReadOnly]
+
+
