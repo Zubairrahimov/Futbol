@@ -35,8 +35,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'account',
     'bron',
+    'modeltranslation',
+
     # third
     'django.contrib.admin',
+
     'rest_framework_simplejwt',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,6 +121,17 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+LANGUAGES = (
+    ('uz', 'Uzbek'),
+    ('en', 'English'),
+    ('ru', 'Russian')
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
+MODELTRANSLATION_TRANSLATION_REGISTRY = 'config.translations'
+
+
 
 
 # Static files (CSS, JavaScript, Images)

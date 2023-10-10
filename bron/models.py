@@ -8,7 +8,7 @@ from account.models import CustomUser
 
 class StadiumModel(models.Model):
     name = models.CharField(max_length=120, default='')
-    adres = models.TextField(default='')
+    address = models.TextField(default='')
     contact = models.CharField(max_length=13, default='')
     images = models.ImageField(upload_to='Images/',blank=True)
 
