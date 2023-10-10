@@ -27,4 +27,6 @@ urlpatterns = [
     path('api/polls/',include('bron.urls')),
     path('user/', include('account.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+
+    
 ]
