@@ -4,9 +4,11 @@ from .models import StadiumModel,BronModel
 class StadiumSerializer(ModelSerializer):
     class Meta:
         model = StadiumModel
-        fields = ('__all__',)
+
+        fields = ('name', 'adres', 'contact')
+
 
 class BronSerializer(ModelSerializer):
     class Meta:
         model = BronModel
-        fields = ('__all__',)
+        fields = ('stadium', 'user', 'start_time', 'end_time', 'price', 'bron_status')

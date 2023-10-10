@@ -25,5 +25,5 @@ class UserPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.user.roles==1:
             return True
+
         return False
-    

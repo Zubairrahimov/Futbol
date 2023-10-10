@@ -16,3 +16,4 @@ class StadiumAdmin(admin.ModelAdmin):
 
 admin.site.register(StadiumModel, StadiumAdmin )
 admin.site.register(BronModel, BronAdmin)
+
