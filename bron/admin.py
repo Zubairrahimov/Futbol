@@ -1,7 +1,19 @@
 from django.contrib import admin
-
-# Register your models here.
 from .models import StadiumModel, BronModel
 
-admin.site.register(StadiumModel)
-admin.site.register(BronModel)
+from .forms import BronForm,StadiumForm
+# Register your models here.
+class BronAdmin(admin.ModelAdmin):
+    form = BronForm
+    list_display = ('stadium',)
+    search_fields = ('stadium',)
+
+class StadiumAdmin(admin.ModelAdmin):
+    form = StadiumForm
+    list_display = ('name',)
+    search_fields = ('name',)  
+
+
+admin.site.register(StadiumModel, StadiumAdmin )
+admin.site.register(BronModel, BronAdmin)
+

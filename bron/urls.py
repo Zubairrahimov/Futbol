@@ -1,16 +1,30 @@
 from django.urls import path
-from .views import (CreateBron, CreateStadium, ALlBrons, 
-    AvailableTimeSlotsView, ListPollsApiView, CRUDView, DestroyBronView, 
+from .views import *
 
-    )
 
 
 urlpatterns = [
-    path('create/stadium/', CreateStadium.as_view()),
-    path('create/bron/', CreateBron.as_view()),
-    path('brons/', ALlBrons.as_view()),
-    path('freestadiums/', AvailableTimeSlotsView.as_view()),
-    path('frst/', ListPollsApiView.as_view()),
-    path('crud/', CRUDView.as_view()),
-    path('stadium/destroy/', DestroyBronView.as_view()),
+    #   ADMIN api
+
+    path('Admincreate/',AdminCreateAPiView.as_view()),
+    path('Amindetsroy/<int:pk>/',AdminDestroyBronView.as_view()),
+    path('AdminAllStadion/', AdminAllStadiumView.as_view()),
+    path('Adminbrons/',AdminAllBrons.as_view()),
+    path('Aminupdates/<int:pk>/',UpdateStatusPollsView.as_view()),
+
+
+    # owner api
+    path('Ownercreatebron/',OwnerCreateBronAPiView.as_view()),
+    path('Ownercreatestadion/',OwnerCreateStadium.as_view()),
+    path('Ownerdestroy/<int:pk>',OwnerDestroyBronView.as_view()),
+    path('OwnerAllbron/', OwnerAllBrons.as_view()),
+    path('OwerAllstadion/',OwnerAllStadiumView.as_view()),
+    path('OwnerUpdateBron/<int:pk/',OwnerUpdateBronPollsView),
+
+    # user api
+    path('Userdetail/<int:pk>',StadiumDetailUserView.as_view()),
+    path('Userbrone',StadiumBronUserView.as_view()),
+    path('userAll/',AllStadiumView.as_view()),
+    path(' ListPolls/',ListPollsApiView.as_view())
+
 ]
