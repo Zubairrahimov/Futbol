@@ -11,18 +11,24 @@ class StadiumModel(models.Model):
     address = models.TextField(default='')
     contact = models.CharField(max_length=13, default='')
     images = models.ImageField(upload_to='Images/',blank=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
     class Meta:
+
+
         db_table = 'Stadium'
+
 
 class BronModel(models.Model):
     stadium = models.ForeignKey(StadiumModel,on_delete=models.CASCADE,default=None,null=True)
     user = models.ForeignKey(CustomUser,on_delete=models.SET_NULL,default=None,null=True)
+
     start_time = models.DateTimeField(default=datetime.now)
     end_time = models.DateTimeField(default=datetime.now)
+
     price = models.IntegerField(default=0)
     bron_status = models.BooleanField(default=False,null=True)
 
@@ -30,4 +36,5 @@ class BronModel(models.Model):
         return f"{self.user} {self.stadium.name}"
 
     class Meta:
+
         db_table = 'Bron'
