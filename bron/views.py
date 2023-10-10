@@ -5,20 +5,35 @@ from .models import StadiumModel, BronModel
 from .serializers import StadiumSerializer, BronSerializer
 from datetime import timezone, timedelta
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from .permissions import OwnerPermissionClass, AdminPermissionClass, UserPermission
 
-
+class CRUDView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = StadiumModel.objects.all()
+    serializer_class = StadiumSerializer
+    permission_classes = (AdminPermissionClass, IsAuthenticated)
 class CreateStadium(generics.ListCreateAPIView):
     queryset = StadiumModel.objects.all()
     serializer_class = StadiumSerializer
+    permission_classes = (IsAuthenticated, OwnerPermissionClass)
 
 class CreateBron(generics.ListCreateAPIView):
     queryset = BronModel.objects.all()
     serializer_class = BronSerializer
+    permission_classes = (IsAuthenticated, UserPermission)
 
 class ALlBrons(generics.ListAPIView):
     queryset = BronModel.objects.all()
     serializer_class = BronSerializer
-
+    permission_classes = (IsAuthenticated, OwnerPermissionClass)
+class DestroyBronView(generics.DestroyAPIView):
+    queryset = BronModel.objects.all()
+    serializer_class = BronSerializer
+    permission_classes = (IsAuthenticated, OwnerPermissionClass)
+class AllStadiumView(generics.ListAPIView):
+    queryset = StadiumModel.objects.all()
+    serializer_class = StadiumSerializer
+    permission_classes = (IsAuthenticated, UserPermission)
 
 from rest_framework import generics
 from rest_framework.response import Response
@@ -81,3 +96,11 @@ class AvailableTimeSlotsView(generics.ListAPIView):
             })
 
         return free_time_slots
+    
+
+class ListPollsApiView(generics.ListAPIView):
+    serializer_class = BronSerializer
+    permission_classes = (OwnerPermissionClass,)
+    
+    def get_queryset(self):
+        return BronModel.objects.filter(bron_status=False)
